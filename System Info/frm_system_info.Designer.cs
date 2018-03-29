@@ -2663,7 +2663,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(450, 15);
             this.label4.TabIndex = 0;
-            this.label4.Text = "System Info is a freeware based on .NET Framework 4.0 Programmed with C#";
+            this.label4.Text = "System Info is a freeware based on .NET Framework 4.5 Programmed with C#";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBox6
