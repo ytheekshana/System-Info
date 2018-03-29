@@ -1,7 +1,7 @@
 ## System-Info
 View advanced System Information of your computer in an elegant way
 
-![Cat](System Info\Pic\system-info.jpg)
+<p align="center"><img src="System Info/Pic/system-info.jpg" /></p>
 
 #### Prerequisites
 - Visual Studio 2017
