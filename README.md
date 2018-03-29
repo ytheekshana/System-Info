@@ -1,7 +1,7 @@
 ## System-Info
 View advanced System Information of your computer in an elegant way
 
-![Screenshot](\System Info\System Info\Pic\system-info.jpg)
+![Screenshot](System Info\Pic\system-info.jpg)
 
 #### Prerequisites
 - Visual Studio 2017
