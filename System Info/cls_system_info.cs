@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
-using Microsoft.VisualBasic.Devices;
+using System.Drawing.Drawing2D;
 using System.Management;
-using System.Diagnostics;
-using System.Threading;
 using System.Runtime.InteropServices;
-using System.Net.NetworkInformation;
+using System.Text;
 
 namespace System_Info
 {
     class cls_system_info
     {
+        public static Double Downinitial = 0.0;
+        public static Double Upinitial = 0.0;
 
         public static String GetAntivirusInfo(String Antivirusinfoname)
         {
@@ -24,7 +22,6 @@ namespace System_Info
             {
                 AntivirusFinal = (AntiVinfo[Antivirusinfoname].ToString());
             }
-
             return AntivirusFinal;
         }
 
@@ -36,12 +33,9 @@ namespace System_Info
             foreach (ManagementObject cinfo in cpuinfo.Get())
             {
                 CPUFinal = (cinfo[cpuinfoname].ToString());
-
             }
-
             return CPUFinal;
         }
-
 
         public static String GetMotherboardInfo(String MBinfoname)
         {
@@ -51,9 +45,7 @@ namespace System_Info
             foreach (ManagementObject MBinfo in Mboardinfo.Get())
             {
                 MboardFinal = (MBinfo[MBinfoname].ToString());
-
             }
-
             return MboardFinal;
         }
 
@@ -66,9 +58,7 @@ namespace System_Info
             foreach (ManagementObject Binfo in Biosinfo.Get())
             {
                 BiosFinal = (Binfo[Biosinfoname].ToString());
-
             }
-
             return BiosFinal;
         }
 
@@ -80,9 +70,7 @@ namespace System_Info
             foreach (ManagementObject PrimaryGPUinfo in PrimaryGraphicsinfo.Get())
             {
                 PrimaryGPUFinal = (PrimaryGPUinfo[PrimaryGPUinfoname].ToString());
-
             }
-
             return PrimaryGPUFinal;
         }
 
@@ -94,9 +82,7 @@ namespace System_Info
             foreach (ManagementObject SecondaryGPUinfo in SecondaryGraphicsinfo.Get())
             {
                 SecondaryGPUFinal = (SecondaryGPUinfo[SecondaryGPUinfoname].ToString());
-
             }
-
             return SecondaryGPUFinal;
         }
 
@@ -108,9 +94,7 @@ namespace System_Info
             foreach (ManagementObject OperatingSinfo in OSinfo.Get())
             {
                 OSFinal = (OperatingSinfo[OSinfoname].ToString());
-
             }
-
             return OSFinal;
         }
 
@@ -122,9 +106,7 @@ namespace System_Info
             foreach (ManagementObject PhysicalMemoryinfo in RAMinfo.Get())
             {
                 RAMFinal = (PhysicalMemoryinfo[RAMinfoname].ToString());
-
             }
-
             return RAMFinal;
         }
 
@@ -136,9 +118,7 @@ namespace System_Info
             foreach (ManagementObject PhysicalMemoryArrayinfo in RAMArrayinfo.Get())
             {
                 RAMArrayFinal = (PhysicalMemoryArrayinfo[RAMArrayinfoname].ToString());
-
             }
-
             return RAMArrayFinal;
         }
 
@@ -150,9 +130,7 @@ namespace System_Info
             foreach (ManagementObject CSinfo in ComputerSysteminfo.Get())
             {
                 ComputerSystemFinal = (CSinfo[OSinfoname].ToString());
-
             }
-
             return ComputerSystemFinal;
         }
 
@@ -165,7 +143,6 @@ namespace System_Info
             {
                 PrimaryHardFinal = (PHinfo[PrimaryHardinfoname].ToString());
             }
-
             return PrimaryHardFinal;
         }
 
@@ -178,7 +155,6 @@ namespace System_Info
             {
                 SecondaryHardFinal = (SHinfo[SecondaryHardinfoname].ToString());
             }
-
             return SecondaryHardFinal;
         }
 
@@ -190,16 +166,13 @@ namespace System_Info
             foreach (ManagementObject WEIndexinfo in WEIinfo.Get())
             {
                 WEIFinal = (WEIndexinfo[WEIinfoname].ToString());
-
             }
-
             return WEIFinal;
         }
 
         public static String NetDownSpeed(Double GetDownSpeed)
         {
             //Code By ytheekshana
-            Double Downinitial = 0.0;
             String FinalSPDown = "";
             Double dload = GetDownSpeed;
             Double Downsp = dload - Downinitial;
@@ -227,7 +200,6 @@ namespace System_Info
         public static String NetUpSpeed(Double GetUpSpeed)
         {
             //Code By ytheekshana
-            Double Upinitial = 0.0;
             String FinalSPUp = "";
             Double uload = GetUpSpeed;
             Double Upsp = uload - Upinitial;
@@ -250,6 +222,21 @@ namespace System_Info
                 FinalSPUp = (Convert.ToDouble(Upsp)).ToString() + " B/s";
             }
             return (FinalSPUp);
+        }
+
+        [DllImport("shell32.dll", EntryPoint = "#261", CharSet = CharSet.Unicode, PreserveSig = false)]
+        public static extern void GetUserTilePath(string username, UInt32 whatever, StringBuilder picpath, int maxLength);
+
+        public static string GetUserTilePath(string username)
+        {   // username: use null for current user
+            var sb = new StringBuilder(1000);
+            GetUserTilePath(username, 0x80000000, sb, sb.Capacity);
+            return sb.ToString();
+        }
+
+        public static Image GetUserTile(string username)
+        {
+            return Image.FromFile(GetUserTilePath(username));
         }
     }
 }

@@ -248,6 +248,10 @@
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.timer4 = new System.Windows.Forms.Timer(this.components);
             this.timer5 = new System.Windows.Forms.Timer(this.components);
+            this.pb_user = new System_Info.CirclePictureBox();
+            this.lbl_username = new System.Windows.Forms.Label();
+            this.pb_battery = new System.Windows.Forms.PictureBox();
+            this.lbl_battery = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -278,6 +282,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGplus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb_about)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_user)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_battery)).BeginInit();
             this.SuspendLayout();
             // 
             // btnMinimize
@@ -1884,6 +1890,7 @@
             this.lblWEITotal.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblWEITotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWEITotal.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblWEITotal.Image = global::System_Info.Properties.Resources.Rating;
             this.lblWEITotal.Location = new System.Drawing.Point(384, 222);
             this.lblWEITotal.Name = "lblWEITotal";
             this.lblWEITotal.Size = new System.Drawing.Size(66, 40);
@@ -2846,12 +2853,59 @@
             // 
             this.timer5.Tick += new System.EventHandler(this.timer5_Tick);
             // 
+            // pb_user
+            // 
+            this.pb_user.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.pb_user.Location = new System.Drawing.Point(458, 5);
+            this.pb_user.Name = "pb_user";
+            this.pb_user.Size = new System.Drawing.Size(25, 25);
+            this.pb_user.TabIndex = 41;
+            this.pb_user.TabStop = false;
+            // 
+            // lbl_username
+            // 
+            this.lbl_username.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lbl_username.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lbl_username.ForeColor = System.Drawing.Color.White;
+            this.lbl_username.Location = new System.Drawing.Point(230, 7);
+            this.lbl_username.Name = "lbl_username";
+            this.lbl_username.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lbl_username.Size = new System.Drawing.Size(196, 21);
+            this.lbl_username.TabIndex = 2;
+            this.lbl_username.Text = "Welcome User hjgyjfyfhyfvhyfhyfvh";
+            this.lbl_username.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // pb_battery
+            // 
+            this.pb_battery.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.pb_battery.Location = new System.Drawing.Point(428, 6);
+            this.pb_battery.Name = "pb_battery";
+            this.pb_battery.Size = new System.Drawing.Size(25, 14);
+            this.pb_battery.TabIndex = 42;
+            this.pb_battery.TabStop = false;
+            // 
+            // lbl_battery
+            // 
+            this.lbl_battery.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lbl_battery.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_battery.ForeColor = System.Drawing.Color.White;
+            this.lbl_battery.Location = new System.Drawing.Point(416, 19);
+            this.lbl_battery.Name = "lbl_battery";
+            this.lbl_battery.Size = new System.Drawing.Size(37, 15);
+            this.lbl_battery.TabIndex = 0;
+            this.lbl_battery.Text = "100%";
+            this.lbl_battery.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // frm_system_info
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(544, 388);
+            this.Controls.Add(this.lbl_username);
+            this.Controls.Add(this.pb_battery);
+            this.Controls.Add(this.pb_user);
             this.Controls.Add(this.lbltabAbout);
+            this.Controls.Add(this.lbl_battery);
             this.Controls.Add(this.lbltabNetwork);
             this.Controls.Add(this.lbltabStorage);
             this.Controls.Add(this.lbltabRating);
@@ -2918,6 +2972,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGplus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb_about)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_user)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_battery)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3140,5 +3196,9 @@
         private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.Timer timer4;
         public System.Windows.Forms.Timer timer5;
+        private CirclePictureBox pb_user;
+        private System.Windows.Forms.Label lbl_username;
+        private System.Windows.Forms.PictureBox pb_battery;
+        private System.Windows.Forms.Label lbl_battery;
     }
 }

@@ -363,6 +363,16 @@ namespace System_Info.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap No_Battery {
+            get {
+                object obj = ResourceManager.GetObject("No_Battery", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap NVidia {
             get {
                 object obj = ResourceManager.GetObject("NVidia", resourceCulture);

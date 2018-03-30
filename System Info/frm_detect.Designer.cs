@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_detect));
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.bgw_detect = new System.ComponentModel.BackgroundWorker();
             this.label4 = new System.Windows.Forms.Label();
@@ -126,6 +127,7 @@
             this.Controls.Add(this.lblprogressinfo);
             this.Controls.Add(this.lblappinfo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frm_detect";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -66,6 +66,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cls_battery.cs" />
+    <Compile Include="cls_circularpicturebox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="cls_images.cs" />
     <Compile Include="cls_report.cs" />
     <Compile Include="cls_system_info.cs" />
@@ -296,6 +300,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
+    <None Include="Pic\No Battery.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,17 +1,12 @@
 ﻿using Microsoft.VisualBasic.Devices;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Management;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Reflection;
-using Microsoft.Win32;
 
 namespace System_Info
 {

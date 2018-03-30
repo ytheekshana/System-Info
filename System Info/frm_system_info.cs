@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
@@ -26,11 +23,13 @@ namespace System_Info
         String Bit;
         DateTime SystemUpTime;
         ulong totalram, freeram, usedram;
-        Double average, Downinitial = 0, Upinitial = 0;
+        Double average;
+        Color batteryuncharge;
 
         public frm_system_info()
         {
             InitializeComponent();
+            pb_user.Image = cls_system_info.GetUserTile(Environment.UserName);
         }
 
         [DllImport("kernel32.dll", SetLastError = true)]
@@ -51,6 +50,7 @@ namespace System_Info
         public void frm_system_info_Load(object sender, EventArgs e)
         {
             //Code By ytheekshana
+            lbl_username.Text = "Welcome " + Environment.UserName;
             Color getcolor = Properties.Settings.Default.ThemeColor;
             lblHeader.BackColor = getcolor;
             btnClose.BackColor = getcolor;
@@ -58,7 +58,14 @@ namespace System_Info
             label13.BackColor = getcolor;
             label14.BackColor = getcolor;
             label15.BackColor = getcolor;
+            pb_user.BackColor = getcolor;
+            lbl_username.BackColor = getcolor;
+            pb_battery.BackColor = getcolor;
+            lbl_battery.BackColor = getcolor;
+            batteryuncharge = getcolor;
 
+            SystemEvents.PowerModeChanged += new PowerModeChangedEventHandler(SystemEvents_PowerModeChanged);
+            ShowBattery();
             lbl_app_version.Text = "Version " + frm_detect.Version + " - March 2018";
             ComputerInfo ci = new ComputerInfo();
             totalram = ci.TotalPhysicalMemory / 1024 / 1024;
@@ -90,8 +97,10 @@ namespace System_Info
             string releaseId = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "ReleaseId", "").ToString();
             if (lblososnamedis.Text.Contains("Microsoft Windows 10") || lblososnamedis.Text.Contains("Windows Server 2016"))
             {
-                switch (releaseId) {
-                    case "1507": lblosversiondis.Text = releaseId + " - Initial Release";
+                switch (releaseId)
+                {
+                    case "1507":
+                        lblosversiondis.Text = releaseId + " - Initial Release";
                         break;
                     case "1511":
                         lblosversiondis.Text = releaseId + " - November Update";
@@ -555,8 +564,14 @@ namespace System_Info
                 label13.BackColor = ChangeTheme.Color;
                 label14.BackColor = ChangeTheme.Color;
                 label15.BackColor = ChangeTheme.Color;
+                pb_user.BackColor = ChangeTheme.Color;
+                lbl_username.BackColor = ChangeTheme.Color;
+                pb_battery.BackColor = ChangeTheme.Color;
+                batteryuncharge = ChangeTheme.Color;
+                lbl_battery.BackColor = ChangeTheme.Color;
                 Properties.Settings.Default.ThemeColor = ChangeTheme.Color;
                 Properties.Settings.Default.Save();
+                ShowBattery();
             }
         }
 
@@ -969,6 +984,47 @@ namespace System_Info
         private void pictureBoxFb_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.fb.me/Yasiru.Theekshana");
+        }
+
+        private void ShowBattery()
+        {
+            PowerStatus status = SystemInformation.PowerStatus;
+            ToolTip tpbattery = new ToolTip();
+            if (status.BatteryChargeStatus != BatteryChargeStatus.NoSystemBattery && status.BatteryChargeStatus != BatteryChargeStatus.Unknown)
+            {
+                float percent = status.BatteryLifePercent;
+                lbl_battery.Text = percent.ToString("P0");
+                if (status.PowerLineStatus == PowerLineStatus.Online)
+                {
+                    if (percent < 1.0f)
+                    {
+                        tpbattery.SetToolTip(pb_battery, "Plugged In, Charging");
+                    }
+                    else
+                    {
+                        tpbattery.SetToolTip(pb_battery, "Plugged In, Battery Full");
+                    }
+                }
+                else
+                {
+                    tpbattery.SetToolTip(pb_battery, "On Battery");
+                }
+                pb_battery.Image = cls_battery.DrawBattery(percent, pb_battery.ClientSize.Width, pb_battery.ClientSize.Height, Color.Transparent, Color.White, Color.White, batteryuncharge, false);
+            }
+            else
+            {
+                pb_battery.Image = Properties.Resources.No_Battery;
+                tpbattery.SetToolTip(pb_battery, "Battery Not Detected");
+                lbl_battery.Text = "N/A";
+            }
+        }
+
+        private void SystemEvents_PowerModeChanged(object sender, Microsoft.Win32.PowerModeChangedEventArgs e)
+        {
+            if (e.Mode == Microsoft.Win32.PowerModes.StatusChange)
+            {
+                ShowBattery();
+            }
         }
     }
 }
