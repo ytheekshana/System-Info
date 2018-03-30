@@ -64,6 +64,7 @@ namespace System_Info
             lbl_battery.BackColor = getcolor;
             batteryuncharge = getcolor;
 
+            SystemEvents.PowerModeChanged -= new PowerModeChangedEventHandler(SystemEvents_PowerModeChanged);
             SystemEvents.PowerModeChanged += new PowerModeChangedEventHandler(SystemEvents_PowerModeChanged);
             ShowBattery();
             lbl_app_version.Text = "Version " + frm_detect.Version + " - March 2018";

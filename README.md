@@ -9,6 +9,10 @@ View advanced System Information of your computer in an elegant way
 - Windows 7/8/8.1/10
 
 ### Changelog
+#### System Info 1.5.4
+- Added user profile image
+- Added Battery information if available
+
 #### System Info 1.5.2
 - Added Support to Windows 10 Major Updates
 
