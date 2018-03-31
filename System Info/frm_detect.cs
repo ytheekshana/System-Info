@@ -26,7 +26,7 @@ namespace System_Info
                 primaryHardsizedis, primaryHardpartitionsDis, secondaryHardModeldis, secondaryHardsizedis, secondaryHardpartitionsDis, secondarygpunamedis,
                 secondarygpudactypedis, secondarygpumemorydis, secondarygpumanufacturerdis, secondarygpurratedis, secondarygpubitdis, secondarygpuresdis,
                 memorytypedis, memoryslotsdis, primaryharddisktypedis, secondaryHarddisktypedis, InternetStatus, WEIProcessordis, WEIMemorydis, WEIGraphicsdis,
-                WEIGamingGraphicsdis, WEIDiskdis, WEITotal, osantivirusdis;
+                WEIGamingGraphicsdis, WEIDiskdis, WEITotal, osantivirusdis, batteryvoltagedis, batterychemistrydis, batteryavailability;
         public static String Version = Assembly.GetExecutingAssembly().GetName().Version.Major.ToString() + "." + Assembly.GetExecutingAssembly().GetName().Version.Minor.ToString() + "." + Assembly.GetExecutingAssembly().GetName().Version.Build.ToString();
 
         frm_system_info f1 = new frm_system_info();
@@ -295,6 +295,15 @@ namespace System_Info
                 {
                     primarygpurratedis = "";
                 }
+            }
+
+            //Computer Battery
+            PowerStatus status = SystemInformation.PowerStatus;
+            if (status.BatteryChargeStatus != BatteryChargeStatus.NoSystemBattery && status.BatteryChargeStatus != BatteryChargeStatus.Unknown)
+            {               
+                batteryvoltagedis = cls_system_info.GetBatteryInfo("DesignVoltage")!= String.Empty ? cls_system_info.GetBatteryInfo("DesignVoltage")+"mV" : "Unknown";
+                batterychemistrydis = cls_system_info.GetBatteryInfo("Chemistry") != String.Empty ? cls_system_info.GetBatteryInfo("Chemistry") + "mWh" : "2";
+                batteryavailability = "Available";
             }
             bgw_detect.ReportProgress(100, "Detection Completed");
             Thread.Sleep(1000);

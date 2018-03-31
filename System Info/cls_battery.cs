@@ -41,7 +41,7 @@ namespace System_Info
                     gr.FillRectangle(brush, body_rect);
                 }
                 float charged_hgt = body_rect.Height * percent;
-                RectangleF charged_rect = new RectangleF(body_rect.Left, body_rect.Bottom - charged_hgt, body_rect.Width, charged_hgt);
+                RectangleF charged_rect = new RectangleF(body_rect.Left + 3, body_rect.Bottom - charged_hgt + 3, body_rect.Width - 6, charged_hgt - 6);
                 using (Brush brush = new SolidBrush(charged_color))
                 {
                     gr.FillRectangle(brush, charged_rect);
@@ -150,6 +150,60 @@ namespace System_Info
             // Join with the start point.
             path.CloseFigure();
             return path;
+        }
+
+
+
+
+
+
+
+        public static Bitmap DrawBattery2(float percent, int wid, int hgt, Color bg_color, Color outline_color, Color charged_color, Color uncharged_color, bool striped)
+        {
+            Bitmap bm = new Bitmap(wid, hgt);
+            using (Graphics gr = Graphics.FromImage(bm))
+            {
+                if (wid > hgt)
+                {
+                    gr.RotateTransform(90, MatrixOrder.Append);
+                    gr.TranslateTransform(wid, 0, MatrixOrder.Append);
+                    int temp = wid;
+                    wid = hgt;
+                    hgt = temp;
+                }
+                DrawVerticalBattery2(gr, percent, wid, hgt, bg_color, outline_color, charged_color, uncharged_color, striped);
+            }
+            return bm;
+        }
+
+        private static void DrawVerticalBattery2(Graphics gr, float percent, int wid, int hgt, Color bg_color, Color outline_color, Color charged_color, Color uncharged_color, bool striped)
+        {
+            gr.Clear(bg_color);
+            gr.SmoothingMode = SmoothingMode.None;
+            float thickness = hgt / 20f;
+            RectangleF body_rect = new RectangleF(thickness * 0.5f, thickness * 1.5f, wid - thickness, hgt - thickness * 2f);
+
+            using (Pen pen = new Pen(outline_color, thickness))
+            {
+                using (Brush brush = new SolidBrush(uncharged_color))
+                {
+                    gr.FillRectangle(brush, body_rect);
+                }
+                float charged_hgt = body_rect.Height * percent;
+                RectangleF charged_rect = new RectangleF(body_rect.Left + 4, body_rect.Bottom - charged_hgt + 4, body_rect.Width - 9, charged_hgt - 8);
+                using (Brush brush = new SolidBrush(charged_color))
+                {
+                    gr.FillRectangle(brush, charged_rect);
+                }
+                if (frm_system_info.batcharging == 1)
+                {
+                    Rectangle abc = new Rectangle(10, 20, 30, 70);
+                    gr.DrawImage(Properties.Resources.Plugged_in, abc);
+                }
+                gr.DrawPath(pen, MakeRoundedRect(body_rect, thickness, thickness, false, false, false, false));
+                RectangleF terminal_rect = new RectangleF(wid / 2f - thickness, 0, 2 * thickness, thickness);
+                gr.DrawPath(pen, MakeRoundedRect(terminal_rect, thickness / 2f, thickness / 2f, false, false, false, false));
+            }
         }
     }
 }

@@ -248,10 +248,21 @@
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.timer4 = new System.Windows.Forms.Timer(this.components);
             this.timer5 = new System.Windows.Forms.Timer(this.components);
-            this.pb_user = new System_Info.CirclePictureBox();
             this.lbl_username = new System.Windows.Forms.Label();
             this.pb_battery = new System.Windows.Forms.PictureBox();
-            this.lbl_battery = new System.Windows.Forms.Label();
+            this.pnl_battery = new System.Windows.Forms.Panel();
+            this.pb_battery_panel = new System.Windows.Forms.PictureBox();
+            this.lbl_battery_level = new System.Windows.Forms.Label();
+            this.lbl_battery_status = new System.Windows.Forms.Label();
+            this.lblbatterychemistrydis = new System.Windows.Forms.Label();
+            this.lblbatteryvoltagedis = new System.Windows.Forms.Label();
+            this.lbl_battery_power_source = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.timer6 = new System.Windows.Forms.Timer(this.components);
+            this.pb_user = new System_Info.CirclePictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -282,8 +293,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGplus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb_about)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pb_user)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb_battery)).BeginInit();
+            this.pnl_battery.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_battery_panel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_user)).BeginInit();
             this.SuspendLayout();
             // 
             // btnMinimize
@@ -322,7 +335,7 @@
             this.label15.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label15.Location = new System.Drawing.Point(3, 385);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(538, 3);
+            this.label15.Size = new System.Drawing.Size(541, 3);
             this.label15.TabIndex = 27;
             // 
             // label14
@@ -340,7 +353,7 @@
             this.label13.Dock = System.Windows.Forms.DockStyle.Right;
             this.label13.Location = new System.Drawing.Point(541, 35);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(3, 353);
+            this.label13.Size = new System.Drawing.Size(3, 350);
             this.label13.TabIndex = 25;
             // 
             // lblHeader
@@ -2853,6 +2866,167 @@
             // 
             this.timer5.Tick += new System.EventHandler(this.timer5_Tick);
             // 
+            // lbl_username
+            // 
+            this.lbl_username.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lbl_username.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lbl_username.ForeColor = System.Drawing.Color.White;
+            this.lbl_username.Location = new System.Drawing.Point(245, 7);
+            this.lbl_username.Name = "lbl_username";
+            this.lbl_username.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lbl_username.Size = new System.Drawing.Size(181, 21);
+            this.lbl_username.TabIndex = 2;
+            this.lbl_username.Text = "Hello User";
+            this.lbl_username.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // pb_battery
+            // 
+            this.pb_battery.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.pb_battery.Location = new System.Drawing.Point(428, 10);
+            this.pb_battery.Name = "pb_battery";
+            this.pb_battery.Size = new System.Drawing.Size(25, 15);
+            this.pb_battery.TabIndex = 42;
+            this.pb_battery.TabStop = false;
+            this.pb_battery.Click += new System.EventHandler(this.pb_battery_Click);
+            // 
+            // pnl_battery
+            // 
+            this.pnl_battery.BackColor = System.Drawing.Color.Gainsboro;
+            this.pnl_battery.Controls.Add(this.pb_battery_panel);
+            this.pnl_battery.Controls.Add(this.lbl_battery_level);
+            this.pnl_battery.Controls.Add(this.lbl_battery_status);
+            this.pnl_battery.Controls.Add(this.lblbatterychemistrydis);
+            this.pnl_battery.Controls.Add(this.lblbatteryvoltagedis);
+            this.pnl_battery.Controls.Add(this.lbl_battery_power_source);
+            this.pnl_battery.Controls.Add(this.label19);
+            this.pnl_battery.Controls.Add(this.label17);
+            this.pnl_battery.Controls.Add(this.label16);
+            this.pnl_battery.Controls.Add(this.label20);
+            this.pnl_battery.Location = new System.Drawing.Point(540, 35);
+            this.pnl_battery.Name = "pnl_battery";
+            this.pnl_battery.Size = new System.Drawing.Size(220, 190);
+            this.pnl_battery.TabIndex = 15;
+            this.pnl_battery.Visible = false;
+            // 
+            // pb_battery_panel
+            // 
+            this.pb_battery_panel.Location = new System.Drawing.Point(18, 17);
+            this.pb_battery_panel.Name = "pb_battery_panel";
+            this.pb_battery_panel.Size = new System.Drawing.Size(100, 50);
+            this.pb_battery_panel.TabIndex = 16;
+            this.pb_battery_panel.TabStop = false;
+            // 
+            // lbl_battery_level
+            // 
+            this.lbl_battery_level.AutoSize = true;
+            this.lbl_battery_level.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.lbl_battery_level.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.lbl_battery_level.Location = new System.Drawing.Point(131, 26);
+            this.lbl_battery_level.Margin = new System.Windows.Forms.Padding(3);
+            this.lbl_battery_level.Name = "lbl_battery_level";
+            this.lbl_battery_level.Size = new System.Drawing.Size(78, 32);
+            this.lbl_battery_level.TabIndex = 14;
+            this.lbl_battery_level.Text = "100%";
+            this.lbl_battery_level.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl_battery_status
+            // 
+            this.lbl_battery_status.AutoSize = true;
+            this.lbl_battery_status.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lbl_battery_status.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_battery_status.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.lbl_battery_status.Location = new System.Drawing.Point(103, 74);
+            this.lbl_battery_status.Name = "lbl_battery_status";
+            this.lbl_battery_status.Padding = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.lbl_battery_status.Size = new System.Drawing.Size(90, 23);
+            this.lbl_battery_status.TabIndex = 15;
+            this.lbl_battery_status.Text = "Critically Low";
+            this.lbl_battery_status.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblbatterychemistrydis
+            // 
+            this.lblbatterychemistrydis.AutoSize = true;
+            this.lblbatterychemistrydis.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblbatterychemistrydis.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblbatterychemistrydis.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.lblbatterychemistrydis.Location = new System.Drawing.Point(103, 143);
+            this.lblbatterychemistrydis.Name = "lblbatterychemistrydis";
+            this.lblbatterychemistrydis.Padding = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.lblbatterychemistrydis.Size = new System.Drawing.Size(12, 23);
+            this.lblbatterychemistrydis.TabIndex = 13;
+            this.lblbatterychemistrydis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblbatteryvoltagedis
+            // 
+            this.lblbatteryvoltagedis.AutoSize = true;
+            this.lblbatteryvoltagedis.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblbatteryvoltagedis.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblbatteryvoltagedis.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.lblbatteryvoltagedis.Location = new System.Drawing.Point(103, 120);
+            this.lblbatteryvoltagedis.Name = "lblbatteryvoltagedis";
+            this.lblbatteryvoltagedis.Padding = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.lblbatteryvoltagedis.Size = new System.Drawing.Size(12, 23);
+            this.lblbatteryvoltagedis.TabIndex = 13;
+            this.lblbatteryvoltagedis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl_battery_power_source
+            // 
+            this.lbl_battery_power_source.AutoSize = true;
+            this.lbl_battery_power_source.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lbl_battery_power_source.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_battery_power_source.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.lbl_battery_power_source.Location = new System.Drawing.Point(103, 97);
+            this.lbl_battery_power_source.Name = "lbl_battery_power_source";
+            this.lbl_battery_power_source.Padding = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.lbl_battery_power_source.Size = new System.Drawing.Size(12, 23);
+            this.lbl_battery_power_source.TabIndex = 13;
+            this.lbl_battery_power_source.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(15, 77);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(41, 15);
+            this.label19.TabIndex = 11;
+            this.label19.Text = "Status";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(15, 146);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(61, 15);
+            this.label17.TabIndex = 12;
+            this.label17.Text = "Chemistry";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(15, 123);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(48, 15);
+            this.label16.TabIndex = 12;
+            this.label16.Text = "Voltage";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(15, 100);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(84, 15);
+            this.label20.TabIndex = 12;
+            this.label20.Text = "Power Source";
+            // 
+            // timer6
+            // 
+            this.timer6.Interval = 5;
+            this.timer6.Tick += new System.EventHandler(this.timer6_Tick);
+            // 
             // pb_user
             // 
             this.pb_user.BackColor = System.Drawing.SystemColors.ControlDarkDark;
@@ -2862,50 +3036,17 @@
             this.pb_user.TabIndex = 41;
             this.pb_user.TabStop = false;
             // 
-            // lbl_username
-            // 
-            this.lbl_username.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbl_username.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.lbl_username.ForeColor = System.Drawing.Color.White;
-            this.lbl_username.Location = new System.Drawing.Point(230, 7);
-            this.lbl_username.Name = "lbl_username";
-            this.lbl_username.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbl_username.Size = new System.Drawing.Size(196, 21);
-            this.lbl_username.TabIndex = 2;
-            this.lbl_username.Text = "Welcome User hjgyjfyfhyfvhyfhyfvh";
-            this.lbl_username.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // pb_battery
-            // 
-            this.pb_battery.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.pb_battery.Location = new System.Drawing.Point(428, 6);
-            this.pb_battery.Name = "pb_battery";
-            this.pb_battery.Size = new System.Drawing.Size(25, 14);
-            this.pb_battery.TabIndex = 42;
-            this.pb_battery.TabStop = false;
-            // 
-            // lbl_battery
-            // 
-            this.lbl_battery.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbl_battery.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_battery.ForeColor = System.Drawing.Color.White;
-            this.lbl_battery.Location = new System.Drawing.Point(416, 19);
-            this.lbl_battery.Name = "lbl_battery";
-            this.lbl_battery.Size = new System.Drawing.Size(37, 15);
-            this.lbl_battery.TabIndex = 0;
-            this.lbl_battery.Text = "100%";
-            this.lbl_battery.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // frm_system_info
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(544, 388);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.pnl_battery);
             this.Controls.Add(this.lbl_username);
             this.Controls.Add(this.pb_battery);
             this.Controls.Add(this.pb_user);
             this.Controls.Add(this.lbltabAbout);
-            this.Controls.Add(this.lbl_battery);
             this.Controls.Add(this.lbltabNetwork);
             this.Controls.Add(this.lbltabStorage);
             this.Controls.Add(this.lbltabRating);
@@ -2920,7 +3061,6 @@
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label14);
-            this.Controls.Add(this.label13);
             this.Controls.Add(this.lblHeader);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -2972,8 +3112,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGplus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb_about)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pb_user)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb_battery)).EndInit();
+            this.pnl_battery.ResumeLayout(false);
+            this.pnl_battery.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_battery_panel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_user)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3199,6 +3342,17 @@
         private CirclePictureBox pb_user;
         private System.Windows.Forms.Label lbl_username;
         private System.Windows.Forms.PictureBox pb_battery;
-        private System.Windows.Forms.Label lbl_battery;
+        private System.Windows.Forms.Panel pnl_battery;
+        private System.Windows.Forms.Timer timer6;
+        private System.Windows.Forms.PictureBox pb_battery_panel;
+        public System.Windows.Forms.Label lbl_battery_level;
+        public System.Windows.Forms.Label lbl_battery_status;
+        public System.Windows.Forms.Label lbl_battery_power_source;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        public System.Windows.Forms.Label lblbatterychemistrydis;
+        public System.Windows.Forms.Label lblbatteryvoltagedis;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
     }
 }

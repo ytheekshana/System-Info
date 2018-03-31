@@ -15,6 +15,7 @@ namespace System_Info
 {
     public partial class frm_system_info : Form
     {
+        public static int batcharging = 0;
         NetworkInterface[] ni;
         Thread cusage;
         Thread[] CPUStressThread;
@@ -25,6 +26,7 @@ namespace System_Info
         ulong totalram, freeram, usedram;
         Double average;
         Color batteryuncharge;
+        int startLocationX = 540, endLocation = 320, panelstatus = 0;
 
         public frm_system_info()
         {
@@ -50,7 +52,7 @@ namespace System_Info
         public void frm_system_info_Load(object sender, EventArgs e)
         {
             //Code By ytheekshana
-            lbl_username.Text = "Welcome " + Environment.UserName;
+            lbl_username.Text = "Hello " + Environment.UserName;
             Color getcolor = Properties.Settings.Default.ThemeColor;
             lblHeader.BackColor = getcolor;
             btnClose.BackColor = getcolor;
@@ -61,7 +63,6 @@ namespace System_Info
             pb_user.BackColor = getcolor;
             lbl_username.BackColor = getcolor;
             pb_battery.BackColor = getcolor;
-            lbl_battery.BackColor = getcolor;
             batteryuncharge = getcolor;
 
             SystemEvents.PowerModeChanged -= new PowerModeChangedEventHandler(SystemEvents_PowerModeChanged);
@@ -325,6 +326,34 @@ namespace System_Info
             //Trackbar
             trackBarStress.Value = 100;
             DisplayWEI();
+
+            //Battery
+            if (frm_detect.batteryavailability == "Available")
+            {
+                String batterychem;
+                lblbatteryvoltagedis.Text = frm_detect.batteryvoltagedis;
+                switch (frm_detect.batterychemistrydis) {
+                    case "1":
+                        batterychem = "Other";break;
+                    case "2":
+                        batterychem = "Unknown"; break;
+                    case "3":
+                        batterychem = "Lead Acid"; break;
+                    case "4":
+                        batterychem = "Nickel Cadmium"; break;
+                    case "5":
+                        batterychem = "Nickel Metal Hydride"; break;
+                    case "6":
+                        batterychem = "Lithium-ion"; break;
+                    case "7":
+                        batterychem = "Zinc air"; break;
+                    case "8":
+                        batterychem = "Lithium Polymer"; break;
+                    default:
+                        batterychem = "Unkown"; break;
+                }
+                lblbatterychemistrydis.Text = batterychem;
+            }
         }
 
         private void btnMinimize_Click(object sender, EventArgs e)
@@ -569,7 +598,6 @@ namespace System_Info
                 lbl_username.BackColor = ChangeTheme.Color;
                 pb_battery.BackColor = ChangeTheme.Color;
                 batteryuncharge = ChangeTheme.Color;
-                lbl_battery.BackColor = ChangeTheme.Color;
                 Properties.Settings.Default.ThemeColor = ChangeTheme.Color;
                 Properties.Settings.Default.Save();
                 ShowBattery();
@@ -991,32 +1019,60 @@ namespace System_Info
         {
             PowerStatus status = SystemInformation.PowerStatus;
             ToolTip tpbattery = new ToolTip();
+            Color batcolor = Color.ForestGreen;
             if (status.BatteryChargeStatus != BatteryChargeStatus.NoSystemBattery && status.BatteryChargeStatus != BatteryChargeStatus.Unknown)
             {
                 float percent = status.BatteryLifePercent;
-                lbl_battery.Text = percent.ToString("P0");
+                lbl_battery_level.Text = percent.ToString("P0");
                 if (status.PowerLineStatus == PowerLineStatus.Online)
                 {
+                    batcharging = 1;
                     if (percent < 1.0f)
                     {
-                        tpbattery.SetToolTip(pb_battery, "Plugged In, Charging");
+                        tpbattery.SetToolTip(pb_battery, percent.ToString("P0") + ", Plugged In, Charging");
+                        lbl_battery_status.Text = "Charging";
+                        lbl_battery_power_source.Text = "Plugged In";
                     }
                     else
                     {
-                        tpbattery.SetToolTip(pb_battery, "Plugged In, Battery Full");
+                        tpbattery.SetToolTip(pb_battery, percent.ToString("P0") + ", Plugged In, Battery Full");
+                        lbl_battery_status.Text = "Battery Full";
+                        lbl_battery_power_source.Text = "Plugged In";
                     }
                 }
                 else
                 {
-                    tpbattery.SetToolTip(pb_battery, "On Battery");
+                    batcharging = 0;
+                    if (percent <= 0.07f)
+                    {
+                        tpbattery.SetToolTip(pb_battery, percent.ToString("P0") + ", Battery Level Critical");
+                        lbl_battery_status.Text = "Critically Low";
+                        lbl_battery_power_source.Text = "On Battery";
+                        batcolor = Color.DarkRed;
+                    }
+                    else if (percent <= 0.2f)
+                    {
+                        tpbattery.SetToolTip(pb_battery, percent.ToString("P0") + ", Battery Low, Plug In");
+                        lbl_battery_status.Text = "Battery Low";
+                        lbl_battery_power_source.Text = "On Battery";
+                        batcolor = Color.DarkRed;
+                    }
+                    else
+                    {
+                        tpbattery.SetToolTip(pb_battery, percent.ToString("P0") + ", On Battery");
+                        lbl_battery_status.Text = "Discharging";
+                        lbl_battery_power_source.Text = "On Battery";
+                        batcolor = Color.ForestGreen;
+                    }
                 }
                 pb_battery.Image = cls_battery.DrawBattery(percent, pb_battery.ClientSize.Width, pb_battery.ClientSize.Height, Color.Transparent, Color.White, Color.White, batteryuncharge, false);
+                pb_battery_panel.Image = cls_battery.DrawBattery2(percent, pb_battery_panel.ClientSize.Width, pb_battery_panel.ClientSize.Height, Color.Transparent, Color.DarkGray, batcolor, Color.Transparent, false);
+
             }
             else
             {
                 pb_battery.Image = Properties.Resources.No_Battery;
                 tpbattery.SetToolTip(pb_battery, "Battery Not Detected");
-                lbl_battery.Text = "N/A";
             }
         }
 
@@ -1025,6 +1081,53 @@ namespace System_Info
             if (e.Mode == Microsoft.Win32.PowerModes.StatusChange)
             {
                 ShowBattery();
+            }
+        }
+
+        private void pb_battery_Click(object sender, EventArgs e)
+        {
+            ShowBattery();
+            if (frm_detect.batteryavailability == "Available")
+            {
+                if (panelstatus == 0)
+                {
+                    pnl_battery.Visible = true;
+
+                    if (!timer6.Enabled)
+                    {
+                        timer6.Start();
+                    }
+                }
+                else if (panelstatus == 1)
+                {
+                    if (!timer6.Enabled)
+                    {
+                        timer6.Start();
+                    }
+                }
+            }
+        }
+
+        private void timer6_Tick(object sender, EventArgs e)
+        {
+            if (panelstatus == 0)
+            {
+                pnl_battery.Location = new Point(pnl_battery.Location.X - 5, pnl_battery.Location.Y);
+                if (pnl_battery.Location.X == endLocation)
+                {
+                    timer6.Stop();
+                    panelstatus = 1;
+                }
+            }
+            else if (panelstatus == 1)
+            {
+                pnl_battery.Location = new Point(pnl_battery.Location.X + 5, pnl_battery.Location.Y);
+                if (pnl_battery.Location.X == startLocationX)
+                {
+                    timer6.Stop();
+                    panelstatus = 0;
+                    pnl_battery.Visible = false;
+                }
             }
         }
     }

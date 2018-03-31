@@ -12,6 +12,18 @@ namespace System_Info
         public static Double Downinitial = 0.0;
         public static Double Upinitial = 0.0;
 
+        public static String GetBatteryInfo(String Batteryinfoname)
+        {
+            //Code By ytheekshana
+            String BatteryFinal = "";
+            ManagementObjectSearcher batteryinfo = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Battery");
+            foreach (ManagementObject cinfo in batteryinfo.Get())
+            {
+                BatteryFinal = (cinfo[Batteryinfoname].ToString());
+            }
+            return BatteryFinal;
+        }
+
         public static String GetAntivirusInfo(String Antivirusinfoname)
         {
             //Code By ytheekshana
