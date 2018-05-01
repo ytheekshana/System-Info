@@ -117,7 +117,7 @@ namespace System_Info
                         lblosversiondis.Text = releaseId + " - Fall Creators Update";
                         break;
                     case "1803":
-                        lblosversiondis.Text = releaseId + " - Spring Creators Update";
+                        lblosversiondis.Text = releaseId + " - April 2018 Update";
                         break;
                 }
             }
