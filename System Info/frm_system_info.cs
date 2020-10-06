@@ -68,7 +68,7 @@ namespace System_Info
             SystemEvents.PowerModeChanged -= new PowerModeChangedEventHandler(SystemEvents_PowerModeChanged);
             SystemEvents.PowerModeChanged += new PowerModeChangedEventHandler(SystemEvents_PowerModeChanged);
             ShowBattery();
-            lbl_app_version.Text = "Version " + frm_detect.Version + " - March 2018";
+            lbl_app_version.Text = "Version " + frm_detect.Version + " - October 2020";
             ComputerInfo ci = new ComputerInfo();
             totalram = ci.TotalPhysicalMemory / 1024 / 1024;
             lblInstalledmemorydis.Text = (totalram).ToString() + "MB";
@@ -118,6 +118,21 @@ namespace System_Info
                         break;
                     case "1803":
                         lblosversiondis.Text = releaseId + " - April 2018 Update";
+                        break;
+                    case "1809":
+                        lblosversiondis.Text = releaseId + " - October 2018 Update";
+                        break;
+                    case "1903":
+                        lblosversiondis.Text = releaseId + " - May 2019 Update";
+                        break;
+                    case "1909":
+                        lblosversiondis.Text = releaseId + " - November 2019 Update";
+                        break;
+                    case "2004":
+                        lblosversiondis.Text = releaseId + " - April 2020 Update";
+                        break;
+                    default:
+                        lblosversiondis.Text = releaseId + " - Unknown Update";
                         break;
                 }
             }
@@ -332,9 +347,10 @@ namespace System_Info
             {
                 String batterychem;
                 lblbatteryvoltagedis.Text = frm_detect.batteryvoltagedis;
-                switch (frm_detect.batterychemistrydis) {
+                switch (frm_detect.batterychemistrydis)
+                {
                     case "1":
-                        batterychem = "Other";break;
+                        batterychem = "Other"; break;
                     case "2":
                         batterychem = "Unknown"; break;
                     case "3":

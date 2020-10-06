@@ -300,8 +300,8 @@ namespace System_Info
             //Computer Battery
             PowerStatus status = SystemInformation.PowerStatus;
             if (status.BatteryChargeStatus != BatteryChargeStatus.NoSystemBattery && status.BatteryChargeStatus != BatteryChargeStatus.Unknown)
-            {               
-                batteryvoltagedis = cls_system_info.GetBatteryInfo("DesignVoltage")!= String.Empty ? cls_system_info.GetBatteryInfo("DesignVoltage")+"mV" : "Unknown";
+            {
+                batteryvoltagedis = cls_system_info.GetBatteryInfo("DesignVoltage") != String.Empty ? cls_system_info.GetBatteryInfo("DesignVoltage") + "mV" : "Unknown";
                 batterychemistrydis = cls_system_info.GetBatteryInfo("Chemistry") != String.Empty ? cls_system_info.GetBatteryInfo("Chemistry") : "2";
                 batteryavailability = "Available";
             }
